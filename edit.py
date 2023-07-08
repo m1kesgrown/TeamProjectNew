@@ -1,31 +1,29 @@
-def edit(self, contact_name, parameter, new_value):
-    names = []
-    try:
-        for account in self.data:
-            names.append(account['name'])
-            if account['name'] == contact_name:
-                if parameter == 'birthday':
-                    new_value = Birthday(new_value).value
-                elif parameter == 'email':
-                    new_value = Email(new_value).value
-                elif parameter == 'status':
-                    new_value = Status(new_value).value
-                elif parameter == 'phones':
-                    new_contact = new_value.split(' ')
-                    new_value = []
-                    for number in new_contact:
-                        new_value.append(Phone(number).value)
-                if parameter in account.keys():
-                    account[parameter] = new_value
-                else:
-                    raise ValueError
-        if contact_name not in names:
-            raise NameError
-    except ValueError:
-        print('Incorrect parameter! Please provide correct parameter')
-    except NameError:
-        print('There is no such contact in address book!')
-    else:
-        self.log(f"Contact {contact_name} has been edited!")
-        return True
-    return False
+def edit_contact(self):
+    while True:
+        try:
+            contact_id = int(input('Please provide contact ID: '))
+            contact_found = False
+            for index, contact in enumerate(self.contacts):
+                if contact_id == index + 1:
+                    contact_found = True
+                    while True:
+                        field = input('Please provide field to be changed: ').lower()
+                        field_handlers = {
+                            'name': self.handle_name,
+                            'address': self.handle_address,
+                            'email': self.handle_email,
+                            'birthday': self.handle_birthday,
+                            'number': self.handle_number,
+                        }
+                        if field in field_handlers:
+                            field_handlers[field](contact)
+                            print(f'{field.capitalize()} succesfully changed.')
+                            break
+                        else:
+                            print(f'Field {field} does not exist. Please try again')
+                    break
+            if not contact_found:
+                print(f'Contact with ID number {contact_id} not found. Please try again.')
+        except ValueError:
+            print('ID number must be digits. Please try again.')
+        break
