@@ -1,17 +1,16 @@
-def search(self, pattern, category):
-    result = []
-    category_new = category.strip().lower().replace(' ', '')
-    pattern_new = pattern.strip().lower().replace(' ', '')
-
-    for account in self.data:
-        if category_new == 'phones':
-
-            for phone in account['phones']:
-
-                if phone.lower().startswith(pattern_new):
-                    result.append(account)
-        elif account[category_new].lower().replace(' ', '') == pattern_new:
-            result.append(account)
-    if not result:
-        print('There is no such contact in address book!')
-    return result
+def search_contacts(self):
+    search_query = input('Please provide search query: ')
+    search_results = []
+    for index, contact in enumerate(self.contacts):
+        if (
+                search_query.lower() in contact.name.lower()
+                or search_query.lower() in contact.number.lower()
+                or search_query.lower() in contact.email.lower()
+        ):
+            search_results.append((index, contact))
+    if search_results:
+        print(f'Search results for "{search_query}":')
+        for index, contact in search_results:
+            print(f'ID: {index + 1}, Name: {contact.name}, Number: {contact.number}, Email: {contact.email}')
+    else:
+        print(f'No contacts found for "{search_query}".')
