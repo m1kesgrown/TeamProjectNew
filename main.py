@@ -4,6 +4,7 @@ from birthdays import birthdays
 from about_us import about_us
 from sort import sort
 
+
 def main():
     while True:
         print('1. Address book')
@@ -29,7 +30,6 @@ def main():
         else:
             print('Invalid choice. Please try again.')
 
+
 if __name__ == '__main__':
     main()
-    
-    
