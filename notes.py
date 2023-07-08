@@ -97,7 +97,7 @@ class NoteManager:
             print(f'No contacts found for "{search_query}".')    
 
 
-def main():
+def notes():
     notemanager = NoteManager()
 
     while True:
@@ -138,4 +138,4 @@ def main():
             input("Press Enter to continue...")
 
 if __name__ == "__main__":
-    main()
+    notes()
