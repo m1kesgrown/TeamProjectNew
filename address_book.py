@@ -81,23 +81,19 @@ class Contactmanager:
             print('Contacts loaded successfully.')
 
 
-def main():
-    address_book = Contactmanager()
+def address_book():
+    contact_manager = Contactmanager()
     filename = 'contacts.pkl'
-    address_book.load_contacts(filename)
+    contact_manager.load_contacts(filename)
     while True:
         print('1. Add contact')
         print('8. Exit')
         choice = input('Please choose a function (1-8): ')
         if choice == '1':
-            address_book.add_contact()
+            contact_manager.add_contact()
         elif choice == '8':
-            address_book.save_contacts(filename)
+            contact_manager.save_contacts(filename)
             print('Exiting the program...')
             break
-
-
-if __name__ == '__main__':
-    main()
 
 
