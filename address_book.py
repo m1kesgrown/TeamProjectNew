@@ -80,6 +80,70 @@ class Contactmanager:
                 self.contacts = pickle.load(file)
             print('Contacts loaded successfully.')
 
+    def search_contacts(self):
+        search_query = input('Please provide search query: ')
+        search_results = []
+        for index, contact in enumerate(self.contacts):
+            if (
+                    search_query.lower() in contact.name.lower()
+                    or search_query.lower() in contact.number.lower()
+                    or search_query.lower() in contact.email.lower()
+            ):
+                search_results.append((index, contact))
+        if search_results:
+            print(f'Search results for "{search_query}":')
+            for index, contact in search_results:
+                print(f'ID: {index + 1}, Name: {contact.name}, Number: {contact.number}, Email: {contact.email}')
+        else:
+            print(f'No contacts found for "{search_query}".')
+
+        def edit_contact(self):
+            while True:
+                try:
+                    contact_id = int(input('Please provide contact ID: '))
+                    contact_found = False
+                    for index, contact in enumerate(self.contacts):
+                        if contact_id == index + 1:
+                            contact_found = True
+                            while True:
+                                field = input('Please provide field to be changed: ').lower()
+                                field_handlers = {
+                                    'name': self.handle_name,
+                                    'address': self.handle_address,
+                                    'email': self.handle_email,
+                                    'birthday': self.handle_birthday,
+                                    'number': self.handle_number,
+                                }
+                                if field in field_handlers:
+                                    field_handlers[field](contact)
+                                    print(f'{field.capitalize()} succesfully changed.')
+                                    break
+                                else:
+                                    print(f'Field {field} does not exist. Please try again')
+                            break
+                    if not contact_found:
+                        print(f'Contact with ID number {contact_id} not found. Please try again.')
+                except ValueError:
+                    print('ID number must be digits. Please try again.')
+                break
+
+    def delete_contact(self):
+        try:
+            contact_found = False
+            contact_id = int(input('Please provide contact ID: '))
+            for index, contact in enumerate(self.contacts):
+                if contact_id == index + 1:
+                    contact_found = True
+                    del self.contacts[contact_id - 1]
+                    print('Contact successfully deleted.')
+                    break
+            if not contact_found:
+                print(f'Contact with ID {contact_id} does not exist. Please try again.')
+                self.delete_contact()
+        except ValueError:
+            print('Contact ID must be digits. Please try again.')
+            self.delete_contact()
+
 
 def address_book():
     contact_manager = Contactmanager()
@@ -95,5 +159,6 @@ def address_book():
             contact_manager.save_contacts(filename)
             print('Exiting the program...')
             break
+
 
 
