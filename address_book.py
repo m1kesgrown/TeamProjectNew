@@ -85,11 +85,17 @@ def address_book():
     contact_manager = Contactmanager()
     filename = 'contacts.pkl'
     contact_manager.load_contacts(filename)
+    fupo = ['1','2','3','4','5','6','7','8']
     while True:
         print('1. Add contact')
         print('8. Exit')
         choice = input('Please choose a function (1-8): ')
-        if choice == '1':
+        if choice not in fupo:
+            try:
+                choice = input('Please choose a function (1-8): ')
+            except ValueError as e:
+                print ('The bot doesnt contain this command')
+        elif choice == '1':
             contact_manager.add_contact()
         elif choice == '8':
             contact_manager.save_contacts(filename)
@@ -97,3 +103,5 @@ def address_book():
             break
 
 
+if __name__ == "__main__":
+    address_book()
