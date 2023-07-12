@@ -253,7 +253,39 @@ def address_book(contacts_file):
         print('5. Display contact information')
         print('6. Search contacts')
         print('0. Main menu')
-        choice = input('Please choose a function (1-8): ')
+        choice = input(
+            'Please choose a function (1-6) or write what you want: ')
+        choice_el = choice.lower().split(' ')
+        commands_list = []
+        name_command = None
+        for key in KEY_WORDS:
+            for el in choice_el:
+                if el in key:
+                    commands_list.append(KEY_WORDS[key].__name__)
+        while True:
+            if len(commands_list) > 1:
+                print('Which command should I execute?')
+                unique_commands = set(commands_list)
+                for index, command in enumerate(unique_commands, start=1):
+                    print(f'{index}. {command}')
+                command_choice = input('Choose command: ')
+                if command_choice in ['exit', 'back', '0', 'address book']:
+                    address_book(contacts_file)
+                    break
+                if command_choice.isdigit():
+                    command_choice = int(command_choice)
+                    if command_choice >= 1 and command_choice <= len(unique_commands):
+                        name_command = list(unique_commands)[
+                            command_choice - 1]
+                        break
+                    else:
+                        print('Invalid choice. Please try again.')
+                        continue
+                else:
+                    print('Invalid choice. Please try again.')
+                    continue
+            elif len(commands_list) == 1:
+                name_command = commands_list[0]
         if choice == '1':
             contact_manager.add_contact()
         elif choice == '2':
