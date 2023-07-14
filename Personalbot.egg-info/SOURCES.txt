@@ -1,0 +1,24 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+Personalbot.egg-info/PKG-INFO
+Personalbot.egg-info/SOURCES.txt
+Personalbot.egg-info/dependency_links.txt
+Personalbot.egg-info/entry_points.txt
+Personalbot.egg-info/top_level.txt
+personalbot/__init__.py
+personalbot/about_us.py
+personalbot/address_book (copy).py
+personalbot/address_book.py
+personalbot/birthdays.py
+personalbot/contacts.pkl
+personalbot/edit.py
+personalbot/main.py
+personalbot/normalize.py
+personalbot/notes.pkl
+personalbot/notes.py
+personalbot/parse.py
+personalbot/remove.py
+personalbot/search.py
+personalbot/sort.py

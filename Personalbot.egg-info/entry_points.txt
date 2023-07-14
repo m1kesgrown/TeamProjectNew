@@ -1,0 +1,2 @@
+[console_scripts]
+personalbot = personalbot.main:main
